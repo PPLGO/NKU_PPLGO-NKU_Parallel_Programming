@@ -4,13 +4,13 @@
 #include <sys/time.h>
 #include <iostream>
 
-const int MAXN = 1 << 26;
+const int MAXN = 1 << 28;
 double *a;
 
 double get_time() {
     struct timeval t;
     gettimeofday(&t, NULL);
-    return t.tv_sec + t.tv_usec * 1e-6;
+    return t.tv_sec * 1000 + t.tv_usec * 1e-3;
 }
 
 double sum_oridinary(int n) {
@@ -40,22 +40,22 @@ int main() {
 
     // 测量运行时间
     double start_time, end_time;
-    for(int n = 8;n <= (1<<26);n <<= 1){
+    for(int n = 11;n <= 28;++ n){
 
     	printf("scale n : %d\n", n);
     	
    	 	start_time = get_time();  
-    	sum_oridinary(n);//普通 
+    	sum_oridinary(1<<n);//普通 
 	    end_time = get_time();  
 	    printf("ordinary_time : %.6f ms\n", end_time - start_time);
 	    
    	 	start_time = get_time();  
-    	sum_multilink(n);//多链路 
+    	sum_multilink(1<<n);//多链路 
 	    end_time = get_time();  
 	    printf("multilink_time : %.6f ms\n", end_time - start_time);
 	    
    	 	start_time = get_time();  
-    	sum_unroll(n);//循环展开 
+    	sum_unroll(1<<n);//循环展开 
 	    end_time = get_time();  
 	    printf("unroll_time : %.6f ms\n", end_time - start_time);
 	}
