@@ -19,11 +19,13 @@ double sum_oridinary(int n) {
 	    sum += a[i];  
     return sum;
 }
-double sum_recursive(int l, int r) {
-    if (l == r) 
-        return a[l];  
-    int mid = (l + r) / 2;
-    return sum_recursive(l, mid) + sum_recursive(mid + 1, r);  // 合并结果
+double sum_multilink(int n) {
+	double sum1 = 0, sum2 = 0; 
+	for(int i = 0;i < n;i += 2){
+		sum1 += a[i];
+		sum2 += a[i+1]; 
+	}
+	return sum1 + sum2;
 }
 double sum_unroll(int n) {
     double sum = 0.0;
@@ -36,14 +38,10 @@ double sum_unroll(int n) {
 int main() {
     a = new double[MAXN];
 
-    // 初始化数组
-    for (int i = 0; i < MAXN; i++) {
-        a[i] = i * 0.01;
-    }
-
     // 测量运行时间
     double start_time, end_time;
     for(int n = 8;n <= (1<<26);n <<= 1){
+
     	printf("scale n : %d\n", n);
     	
    	 	start_time = get_time();  
@@ -52,9 +50,9 @@ int main() {
 	    printf("ordinary_time : %.6f ms\n", end_time - start_time);
 	    
    	 	start_time = get_time();  
-    	sum_recursive(0,n-1);//递归 
+    	sum_multilink(n);//多链路 
 	    end_time = get_time();  
-	    printf("recursive_time : %.6f ms\n", end_time - start_time);
+	    printf("multilink_time : %.6f ms\n", end_time - start_time);
 	    
    	 	start_time = get_time();  
     	sum_unroll(n);//循环展开 
