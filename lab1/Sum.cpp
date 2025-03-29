@@ -37,6 +37,9 @@ double sum_unroll(int n) {
 
 int main() {
     a = new double[MAXN];
+    
+    for(int i = 0;i < MAXN;++ i)
+    	a[i] = i * 0.1;
 
     // 测量运行时间
     double start_time, end_time;
