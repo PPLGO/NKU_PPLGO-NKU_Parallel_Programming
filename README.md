@@ -10,4 +10,4 @@ lab4：MPI编程
 
 lab5：GPU编程
 
-lab5：期末报告
+lab6：期末报告
